@@ -51,11 +51,11 @@
 
 <svelte:head>
 	<title>Log in</title>
-	<meta name="description" content="Log in to Bug tracker for Word'n'Seek" />
+	<meta name="description" content="Log in to Disinfect!" />
 </svelte:head>
 
 <section>
-	<h1>Log in to Bug tracker</h1>
+	<h1>Log in to Disinfect!</h1>
 
 	{#if errorMessage}
 		<p class="error">{errorMessage}</p>

@@ -5,8 +5,8 @@
 
 <header>
 	<div class="corner logo">
-		<a href="https://tracker.word-n-seek.com/">
-			<img src={logo} alt="Bug Tracker for Word'n'Seek" />
+		<a href="https://disinfect.word-n-seek.com/">
+			<img src={logo} alt="Disinfect!" />
 		</a>
 	</div>
 

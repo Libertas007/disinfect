@@ -2,15 +2,15 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Disinfect! - Home</title>
 	<meta name="description" content="Bug tracker for Word'n'Seek" />
 </svelte:head>
 
 <section>
-	<h1>Bug tracker for Word'n'Seek</h1>
+	<h1>Disinfect!</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		Find and report bugs in <a href="https://word-n-seek.com/">Word'n'Seek</a>
 	</h2>
 </section>
 

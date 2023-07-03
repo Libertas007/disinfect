@@ -56,11 +56,11 @@
 
 <svelte:head>
 	<title>Sign up</title>
-	<meta name="description" content="Sign up for Bug tracker for Word'n'Seek" />
+	<meta name="description" content="Sign up for Disinfect" />
 </svelte:head>
 
 <section>
-	<h1>Sign up for Bug tracker</h1>
+	<h1>Sign up for Disinfect!</h1>
 
 	{#if errorMessage}
 		<p class="error">{errorMessage}</p>

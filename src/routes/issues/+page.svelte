@@ -1,6 +1,6 @@
 <svelte:head>
 	<title>Issues</title>
-	<meta name="description" content="Bug tracker for Word'n'Seek" />
+	<meta name="description" content="Disinfect! - Bug tracker for Word'n'Seek" />
 </svelte:head>
 
 <section>
