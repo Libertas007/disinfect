@@ -1,0 +1,190 @@
+@import '@fontsource/fira-mono';
+@import url('./cabinet-grotesk/css/cabinet-grotesk.css');
+@import url('./satoshi/css/satoshi.css');
+
+:root {
+	--font-headline: 'CabinetGrotesk-Extrabold', sans-serif;
+	--font-body: 'Satoshi-Normal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+		Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	--font-mono: 'Fira Mono', monospace;
+	--color-theme-1: #b6383e;
+	--color-theme-2: #4075a6;
+	--color-text: rgba(0, 0, 0, 0.7);
+	--column-width: 42rem;
+	--column-margin-top: 4rem;
+	font-family: var(--font-body);
+	color: var(--color-text);
+}
+
+body {
+	min-height: 100vh;
+	margin: 0;
+	background-attachment: fixed;
+	background-color: #f4dccc;
+	background-size: 100vw 100vh;
+}
+
+h1,
+h2 {
+	font-family: var(--font-headline);
+}
+
+p {
+	line-height: 1.5;
+}
+
+a {
+	color: var(--color-theme-1);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+h1 {
+	font-size: 2rem;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1rem;
+}
+
+pre {
+	font-size: 16px;
+	font-family: var(--font-mono);
+	background-color: rgba(255, 255, 255, 0.45);
+	border-radius: 3px;
+	box-shadow: 2px 2px 6px rgb(255 255 255 / 25%);
+	padding: 0.5em;
+	overflow-x: auto;
+	color: var(--color-text);
+}
+
+.text-column {
+	display: flex;
+	max-width: 48rem;
+	flex: 0.6;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
+}
+
+input,
+button {
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+input,
+button,
+input::file-selector-button {
+	font-size: inherit;
+	font-family: inherit;
+	outline: none;
+}
+
+input {
+	border: 2px solid var(--color-theme-1);
+	border-radius: 0.25rem;
+	padding: 0.5rem;
+	margin: 2px;
+	color: var(--color-theme-1);
+	transition: all 0.2s ease-in-out;
+}
+
+input:invalid {
+	border-color: var(--color-theme-2);
+	color: var(--color-theme-2);
+}
+
+label.required:after {
+	content: '*';
+	color: var(--color-theme-2);
+	margin-left: 0.25rem;
+}
+
+button,
+input::file-selector-button {
+	color: var(--color-theme-1);
+	border-radius: 0.25rem;
+	border: 2px solid var(--color-theme-1);
+	padding: 0.5rem;
+	margin: 2px;
+	background-color: transparent;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+button.cta {
+	background-color: var(--color-theme-1);
+	color: #f4dccc;
+}
+
+button.danger {
+	border: 2px solid var(--color-theme-2);
+	background-color: #f4dccc;
+	color: var(--color-theme-2);
+}
+
+button:hover,
+input::file-selector-button:hover {
+	background-color: var(--color-theme-1);
+	color: #f4dccc;
+}
+
+button.cta:hover {
+	background-color: transparent;
+	color: var(--color-theme-1);
+}
+
+button.danger:hover {
+	background-color: var(--color-theme-2);
+	color: #f4dccc;
+}
+
+button:disabled,
+input:disabled,
+input:disabled::file-selector-button {
+	border: 2px dashed #a2a2a2;
+	color: #a2a2a2;
+	cursor: not-allowed;
+}
+
+button:disabled:hover,
+input:disabled:hover,
+input:disabled::file-selector-button:hover {
+	background-color: transparent;
+	color: #a2a2a2;
+}
+
+@media (min-width: 720px) {
+	h1 {
+		font-size: 2.4rem;
+	}
+}
+
+.visually-hidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: auto;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	white-space: nowrap;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	flex: 0.6;
+}
