@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 </script>
 
 <svelte:head>
@@ -12,6 +13,9 @@
 	<h2>
 		Find and report bugs in <a href="https://word-n-seek.com/">Word'n'Seek</a>
 	</h2>
+
+	<p>To get started, create an account!</p>
+	<button class="cta" on:click={() => goto('/signup')}>Sign up!</button>
 </section>
 
 <style>
