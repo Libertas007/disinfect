@@ -31,7 +31,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@fortawesome/free-brands-svg-icons": "^6.4.0",
+		"@fortawesome/free-regular-svg-icons": "^6.4.0",
+		"@fortawesome/free-solid-svg-icons": "^6.4.0",
 		"firebase": "^9.23.0",
+		"svelte-fa": "^3.0.4",
 		"svelte-french-toast": "^1.1.0",
 		"sveltefire": "^0.2.3"
 	}

@@ -48,7 +48,7 @@ h1 {
 }
 
 h2 {
-	font-size: 1rem;
+	font-size: 1.5rem;
 }
 
 pre {
@@ -72,6 +72,7 @@ pre {
 }
 
 input,
+textarea,
 button {
 	font-size: inherit;
 	font-family: inherit;
@@ -82,6 +83,7 @@ button:focus:not(:focus-visible) {
 }
 
 input,
+textarea,
 button,
 input::file-selector-button {
 	font-size: inherit;
@@ -89,16 +91,19 @@ input::file-selector-button {
 	outline: none;
 }
 
-input {
+input,
+textarea {
 	border: 2px solid var(--color-theme-1);
 	border-radius: 0.25rem;
 	padding: 0.5rem;
 	margin: 2px;
 	color: var(--color-theme-1);
+	background-color: transparent;
 	transition: all 0.2s ease-in-out;
 }
 
-input:invalid {
+input:invalid,
+textarea:invalid {
 	border-color: var(--color-theme-2);
 	color: var(--color-theme-2);
 }
@@ -150,6 +155,7 @@ button.danger:hover {
 
 button:disabled,
 input:disabled,
+textarea:disabled,
 input:disabled::file-selector-button {
 	border: 2px dashed #a2a2a2;
 	color: #a2a2a2;
@@ -158,6 +164,7 @@ input:disabled::file-selector-button {
 
 button:disabled:hover,
 input:disabled:hover,
+textarea:disabled:hover,
 input:disabled::file-selector-button:hover {
 	background-color: transparent;
 	color: #a2a2a2;

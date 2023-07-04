@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import logo from '$lib/images/logo.svg';
+	import { user } from './stores';
 </script>
 
 <header>
@@ -21,9 +22,15 @@
 			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
 				<a href="/about">About</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/login' ? 'page' : undefined}>
-				<a href="/login">Log in</a>
-			</li>
+			{#if !$user}
+				<li aria-current={$page.url.pathname === '/login' ? 'page' : undefined}>
+					<a href="/login">Log in</a>
+				</li>
+			{:else}
+				<li aria-current={$page.url.pathname === '/dashboard' ? 'page' : undefined}>
+					<a href="/dashboard">Dashboard</a>
+				</li>
+			{/if}
 		</ul>
 	</nav>
 
