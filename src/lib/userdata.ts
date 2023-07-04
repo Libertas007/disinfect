@@ -5,6 +5,7 @@ const db = getFirestore(app);
 
 interface UserInfo {
 	name: string;
+	role: string;
 }
 
 async function setUserInfo(userInfo: UserInfo, uid: string) {

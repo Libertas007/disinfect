@@ -3,6 +3,8 @@
 	import { user } from '../../stores';
 	import { createIssue, type Issue } from '$lib/issues';
 	import toast, { Toaster } from 'svelte-french-toast';
+	import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+	import Fa from 'svelte-fa';
 
 	let title = '';
 	let description = '';
@@ -60,6 +62,8 @@
 </svelte:head>
 
 <Toaster />
+
+<a href="/issues"><Fa icon={faArrowLeft} /> Back</a>
 
 <section class="text-column">
 	<h1>New issue</h1>

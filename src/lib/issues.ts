@@ -47,15 +47,15 @@ async function createIssue(issue: Issue) {
 }
 
 async function createComment(comment: Comment, forId: string) {
-	const ref = doc(db, 'issues', forId.toString());
+	const ref = doc(db, 'issues', forId);
 
 	await updateDoc(ref, {
-		comments: [(await getIssue(forId)).comments, comment]
+		comments: [...(await getIssue(forId)).comments, comment]
 	});
 }
 
 async function getIssue(id: string): Promise<Issue> {
-	const issue = await getDoc(doc(db, 'issues', id.toString()));
+	const issue = await getDoc(doc(db, 'issues', id));
 	return issue.data() as Issue;
 }
 
@@ -64,5 +64,14 @@ async function getIssues(): Promise<Issue[]> {
 	return issues.docs.map((d) => d.data()) as Issue[];
 }
 
-export { createIssue, createComment, getIssue, getIssues };
+async function closeIssue(id: string) {
+	const ref = doc(db, 'issues', id);
+
+	await updateDoc(ref, {
+		status: 'closed',
+		closedAt: new Date(Date.now())
+	});
+}
+
+export { createIssue, createComment, getIssue, getIssues, closeIssue };
 export type { Issue, Comment };

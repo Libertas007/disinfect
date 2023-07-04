@@ -17,10 +17,11 @@
 		<p>Create an account to get started!</p>
 		<button class="cta" on:click={() => goto('/signup')}>Sign up!</button>
 	{:else}
+		<button class="cta" on:click={() => goto('/issues/new')}>New issue</button>
 		{#await getIssues()}
 			<p>Loading issues...</p>
 		{:then issues}
-			{#each issues as issue}
+			{#each issues.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds) as issue}
 				<IssueSmall {issue} />
 			{/each}
 		{/await}

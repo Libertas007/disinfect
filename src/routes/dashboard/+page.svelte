@@ -23,7 +23,7 @@
 			displayName: name
 		});
 
-		await setUserInfo({ name }, $user?.uid ?? '');
+		await setUserInfo({ name, role: '' }, $user?.uid ?? '');
 
 		location.reload();
 	}

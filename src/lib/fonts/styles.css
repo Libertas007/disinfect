@@ -25,12 +25,16 @@ body {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: var(--font-headline);
 }
 
 p {
-	line-height: 1.5;
+	line-height: 1;
 }
 
 a {
@@ -49,6 +53,11 @@ h1 {
 
 h2 {
 	font-size: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin: 10px 0;
 }
 
 pre {

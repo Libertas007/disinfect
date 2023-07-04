@@ -8,8 +8,6 @@
 
 	const formatter = new Intl.RelativeTimeFormat('en', { style: 'long', numeric: 'auto' });
 
-	console.log(issue.createdAt);
-
 	let difference = Math.floor(
 		(new Date(Date.now()).getTime() / 1000 - issue.createdAt.seconds) / 60 / 60 / 24
 	);
@@ -28,10 +26,17 @@
 					{issue.title}
 				</a>
 			</h2>
-			<p>
-				Opened {formatter.format(-difference, 'days')} by {author.name}, {issue.comments.length} comments.
-				<a href={`/issues/${issue.id}`}>See more...</a>
-			</p>
+			{#if !issue.closedAt}
+				<p>
+					Opened {formatter.format(-difference, 'days')} by {author.name}, {issue.comments.length} comments.
+					<a href={`/issues/${issue.id}`}>See more...</a>
+				</p>
+			{:else}
+				<p>
+					By {author.name}, closed {formatter.format(-difference, 'days')}, {issue.comments.length} comments.
+					<a href={`/issues/${issue.id}`}>See more...</a>
+				</p>
+			{/if}
 		</div>
 	{/await}
 </div>
