@@ -21,6 +21,9 @@ interface Issue {
 	closedAt: DateLike | null;
 	author: string;
 	comments: Comment[];
+	flags: string[];
+	platform: 'web' | 'android' | 'ios';
+	appVersion: string;
 }
 
 interface Comment {

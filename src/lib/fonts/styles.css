@@ -73,6 +73,7 @@ pre {
 
 input,
 textarea,
+select,
 button {
 	font-size: inherit;
 	font-family: inherit;
@@ -85,6 +86,7 @@ button:focus:not(:focus-visible) {
 input,
 textarea,
 button,
+select,
 input::file-selector-button {
 	font-size: inherit;
 	font-family: inherit;
@@ -92,7 +94,8 @@ input::file-selector-button {
 }
 
 input,
-textarea {
+textarea,
+select {
 	border: 2px solid var(--color-theme-1);
 	border-radius: 0.25rem;
 	padding: 0.5rem;
@@ -103,6 +106,7 @@ textarea {
 }
 
 input:invalid,
+select:invalid,
 textarea:invalid {
 	border-color: var(--color-theme-2);
 	color: var(--color-theme-2);
@@ -115,6 +119,7 @@ label.required:after {
 }
 
 button,
+select,
 input::file-selector-button {
 	color: var(--color-theme-1);
 	border-radius: 0.25rem;

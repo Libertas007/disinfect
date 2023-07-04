@@ -9,18 +9,21 @@
 		updateProfile
 	} from 'firebase/auth';
 	import { user } from '../stores';
+	import { setUserInfo } from '$lib/userdata';
 
 	const auth = getAuth(app);
 
 	let name: string = $user?.displayName ?? '';
 	let verificationSent = false;
 
-	function update() {
+	async function update() {
 		if (name === auth.currentUser!.displayName || name === '') return;
 
-		updateProfile($user!, {
+		await updateProfile($user!, {
 			displayName: name
 		});
+
+		await setUserInfo({ name }, $user?.uid ?? '');
 
 		location.reload();
 	}

@@ -2,6 +2,7 @@
 	import type { Issue } from '$lib/issues';
 	import Fa from 'svelte-fa';
 	import { faCircleDot, faCircleCheck } from '@fortawesome/free-regular-svg-icons';
+	import { getUserInfo } from '$lib/userdata';
 
 	export let issue: Issue;
 
@@ -15,20 +16,24 @@
 </script>
 
 <div class="box">
-	<div class="icon">
-		<Fa icon={issue.status == 'open' ? faCircleDot : faCircleCheck} scale={2} color={'#B6383E'} />
-	</div>
-	<div class="content">
-		<h2>
-			<a href={`/issues/${issue.id}`}>
-				{issue.title}
-			</a>
-		</h2>
-		<p>
-			Opened {formatter.format(-difference, 'days')} by {issue.author}.
-			<a href={`/issues/${issue.id}`}>See more...</a>
-		</p>
-	</div>
+	{#await getUserInfo(issue.author)}
+		<p>Wait a minute...</p>
+	{:then author}
+		<div class="icon">
+			<Fa icon={issue.status == 'open' ? faCircleDot : faCircleCheck} scale={2} color={'#B6383E'} />
+		</div>
+		<div class="content">
+			<h2>
+				<a href={`/issues/${issue.id}`}>
+					{issue.title}
+				</a>
+			</h2>
+			<p>
+				Opened {formatter.format(-difference, 'days')} by {author.name}, {issue.comments.length} comments.
+				<a href={`/issues/${issue.id}`}>See more...</a>
+			</p>
+		</div>
+	{/await}
 </div>
 
 <style>
@@ -40,6 +45,7 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
+		margin: 0.25rem;
 	}
 
 	.icon {
