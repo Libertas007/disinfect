@@ -97,7 +97,11 @@
 			{#each issue.comments as comment}
 				{#await getUserInfo(comment.author) then commentAuthor}
 					<div class="content">
-						<h3>{commentAuthor.name} said:</h3>
+						<p>
+							<b>{commentAuthor.name}</b> commented {dateFormatter.format(
+								comment.createdAt.seconds * 1000
+							)}:
+						</p>
 						<p>{comment.content}</p>
 					</div>
 				{/await}
