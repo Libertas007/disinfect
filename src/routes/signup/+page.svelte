@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { Toaster, toast } from 'svelte-french-toast';
 	import { app } from '../../firebase';
 	import {
 		getAuth,
@@ -9,6 +10,7 @@
 		updateProfile
 	} from 'firebase/auth';
 	import { userStore } from 'sveltefire';
+	import { setUserInfo } from '$lib/userdata';
 
 	let name: string = '';
 	let email: string = '';
@@ -36,28 +38,47 @@
 
 		if (invalid.length != 0) return;
 
+		if (name.trim().length < 3) {
+			toast.error("Display name can't be less than 3 characters.");
+			return;
+		}
+
+		if (name.trim().length > 20) {
+			toast.error("Display name can't be more than 20 characters.");
+			return;
+		}
+
+		if (password.trim().length < 6) {
+			toast.error("Password can't be less than 6 characters.");
+			return;
+		}
+
 		try {
 			await createUserWithEmailAndPassword(auth, email, password);
-			updateProfile(auth.currentUser!, {
-				displayName: name
+			await updateProfile(auth.currentUser!, {
+				displayName: name.trim()
 			});
+
+			await setUserInfo({ name: name.trim(), role: '' }, $user?.uid ?? '');
+
+			toast.success('Account created successfully!');
+
+			setTimeout(() => {
+				goto('/');
+			}, 2000);
 		} catch (error: any) {
 			errorCode = error.code || 'unknown';
 			errorMessage = messages.get(errorCode) || 'Unknown error.';
 		}
 	}
-
-	user.subscribe((user) => {
-		if (user) {
-			goto('/');
-		}
-	});
 </script>
 
 <svelte:head>
 	<title>Sign up</title>
 	<meta name="description" content="Sign up for Disinfect" />
 </svelte:head>
+
+<Toaster />
 
 <section>
 	<h1>Sign up for Disinfect!</h1>

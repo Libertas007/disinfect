@@ -10,6 +10,7 @@
 	} from 'firebase/auth';
 	import { user } from '../stores';
 	import { setUserInfo } from '$lib/userdata';
+	import toast, { Toaster } from 'svelte-french-toast';
 
 	const auth = getAuth(app);
 
@@ -19,13 +20,27 @@
 	async function update() {
 		if (name === auth.currentUser!.displayName || name === '') return;
 
+		if (name.trim().length < 3) {
+			toast.error("Display name can't be less than 3 characters.");
+			return;
+		}
+
+		if (name.trim().length > 20) {
+			toast.error("Display name can't be more than 20 characters.");
+			return;
+		}
+
 		await updateProfile($user!, {
-			displayName: name
+			displayName: name.trim()
 		});
 
-		await setUserInfo({ name, role: '' }, $user?.uid ?? '');
+		await setUserInfo({ name: name.trim(), role: '' }, $user?.uid ?? '');
 
-		location.reload();
+		toast.success('Profile updated.');
+
+		setTimeout(() => {
+			location.reload();
+		}, 2000);
 	}
 
 	async function verify() {
@@ -39,6 +54,8 @@
 	<title>Dashboard</title>
 	<meta name="description" content="Dashboard" />
 </svelte:head>
+
+<Toaster />
 
 <section>
 	<h1>Dashboard</h1>
