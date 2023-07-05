@@ -29,12 +29,12 @@
 			{#if !issue.closedAt}
 				<p>
 					Opened {formatter.format(-difference, 'days')} by {author.name}, {issue.comments.length} comments.
-					<a href={`/issues/${issue.id}`}>See more...</a>
+					Flags: {issue.flags.join(', ')}
 				</p>
 			{:else}
 				<p>
 					By {author.name}, closed {formatter.format(-difference, 'days')}, {issue.comments.length} comments.
-					<a href={`/issues/${issue.id}`}>See more...</a>
+					Flags: {issue.flags.join(', ')}
 				</p>
 			{/if}
 		</div>
