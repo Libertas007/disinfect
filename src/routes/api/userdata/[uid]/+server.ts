@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { initializeApp, getApp, getApps } from 'firebase-admin/app';
-import { credential, auth } from 'firebase-admin';
+import admin from 'firebase-admin';
 import { kv } from '@vercel/kv';
 
 interface UserData {
@@ -11,7 +11,7 @@ interface UserData {
 
 getApps().length == 0
 	? initializeApp({
-			credential: credential.cert(JSON.parse(import.meta.env.VITE_FIREBASE_AUTH))
+			credential: admin.credential.cert(JSON.parse(import.meta.env.VITE_FIREBASE_AUTH))
 	  })
 	: getApp();
 
@@ -24,7 +24,7 @@ export const GET = async function (data) {
 	}
 
 	try {
-		await auth().verifyIdToken(authHeader);
+		await admin.auth().verifyIdToken(authHeader);
 
 		const friendlyName = await kv.get<UserData>(uid);
 
@@ -56,7 +56,7 @@ export const POST = async function (data) {
 		}
 
 		try {
-			const token = await auth().verifyIdToken(authHeader);
+			const token = await admin.auth().verifyIdToken(authHeader);
 
 			if (token.user.uid !== uid) {
 				return json({ error: 'Unauthorized' }, { status: 403 });

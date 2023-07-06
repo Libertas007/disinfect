@@ -1,6 +1,6 @@
-# create-svelte
+# Disinfect"
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Bug tracker for Word'n'Seek
 
 ## Creating a project
 
