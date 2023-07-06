@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { initializeApp, getApp, getApps } from 'firebase-admin/app';
 import admin from 'firebase-admin';
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
 
 interface UserData {
 	name: string;
@@ -15,6 +15,11 @@ getApps().length == 0
 	  })
 	: getApp();
 
+const kv = createClient({
+	token: import.meta.env.VITE_KV_REST_API_TOKEN,
+	url: import.meta.env.VITE_KV_REST_API_URL
+});
+
 export const GET = async function (data) {
 	const uid = data.params.uid;
 	const authHeader = data.request.headers.get('Authorization');
@@ -26,9 +31,7 @@ export const GET = async function (data) {
 	try {
 		await admin.auth().verifyIdToken(authHeader);
 
-		const friendlyName: UserData = JSON.parse(
-			(await kv.get(uid)) ?? JSON.stringify({ name: 'Very original name', role: '' })
-		);
+		const friendlyName: UserData = (await kv.get(uid)) ?? { name: 'Unnamed', role: '' };
 
 		return json({ uid, name: friendlyName.name, role: friendlyName.role });
 	} catch (e) {
