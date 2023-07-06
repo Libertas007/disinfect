@@ -26,9 +26,11 @@ export const GET = async function (data) {
 	try {
 		await admin.auth().verifyIdToken(authHeader);
 
-		const friendlyName = await kv.get<UserData>(uid);
+		const friendlyName: UserData = JSON.parse(
+			(await kv.get<string>(uid)) ?? JSON.stringify({ name: 'Very original name', role: '' })
+		);
 
-		return json({ uid, name: friendlyName?.name, role: friendlyName?.role });
+		return json({ uid, name: friendlyName.name, role: friendlyName.role });
 	} catch (e) {
 		return json({ error: e }, { status: 401 });
 	}
@@ -62,11 +64,9 @@ export const POST = async function (data) {
 				return json({ error: 'Unauthorized' }, { status: 403 });
 			}
 
-			await kv.set(uid, body);
+			await kv.set(uid, JSON.stringify(body));
 
-			const friendlyName = await kv.get<UserData>(uid);
-
-			return json({ uid, name: friendlyName?.name, role: friendlyName?.role });
+			return json({ uid, name: body.name, role: body.role });
 		} catch (e) {
 			return json({ error: e }, { status: 401 });
 		}
