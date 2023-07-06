@@ -27,7 +27,7 @@ export const GET = async function (data) {
 		await admin.auth().verifyIdToken(authHeader);
 
 		const friendlyName: UserData = JSON.parse(
-			(await kv.get<string>(uid)) ?? JSON.stringify({ name: 'Very original name', role: '' })
+			(await kv.get(uid)) ?? JSON.stringify({ name: 'Very original name', role: '' })
 		);
 
 		return json({ uid, name: friendlyName.name, role: friendlyName.role });
