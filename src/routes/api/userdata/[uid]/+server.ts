@@ -60,7 +60,7 @@ export const POST = async function (data) {
 		try {
 			const token = await admin.auth().verifyIdToken(authHeader);
 
-			if (token.user.uid !== uid) {
+			if (token.uid !== uid) {
 				return json({ error: 'Unauthorized' }, { status: 403 });
 			}
 
