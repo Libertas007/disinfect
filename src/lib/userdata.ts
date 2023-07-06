@@ -1,7 +1,5 @@
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
 import { app } from '../firebase';
-
-const db = getFirestore(app);
+import { getAuth } from 'firebase/auth';
 
 interface UserInfo {
 	name: string;
@@ -9,12 +7,33 @@ interface UserInfo {
 }
 
 async function setUserInfo(userInfo: UserInfo, uid: string) {
-	await setDoc(doc(db, 'userdata', uid), userInfo);
+	const user = getAuth(app).currentUser;
+
+	await fetch(`/api/userdata/${uid}`, {
+		method: 'POST',
+		headers: {
+			Authorization: (await user?.getIdToken()) || ''
+		},
+		body: JSON.stringify(userInfo)
+	});
 }
 
-async function getUserInfo(uid: string) {
-	const userInfo = await getDoc(doc(db, 'userdata', uid));
-	return userInfo.data() as UserInfo;
+async function getUserInfo(uid: string): Promise<UserInfo> {
+	const user = getAuth(app).currentUser;
+
+	const res = await fetch(`/api/userdata/${uid}`, {
+		method: 'GET',
+		headers: {
+			Authorization: (await user?.getIdToken()) || ''
+		}
+	});
+
+	const data = await res.json();
+
+	return {
+		name: data.name,
+		role: data.role
+	};
 }
 
 export { setUserInfo, getUserInfo };
