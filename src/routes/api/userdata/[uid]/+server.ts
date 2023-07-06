@@ -67,6 +67,8 @@ export const POST = async function (data) {
 				return json({ error: 'Unauthorized' }, { status: 403 });
 			}
 
+			admin.auth().updateUser(uid, { displayName: body.name });
+
 			await kv.set(uid, JSON.stringify(body));
 
 			return json({ uid, name: body.name, role: body.role });
