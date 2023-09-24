@@ -31,6 +31,7 @@ interface Comment {
 	createdAt: DateLike;
 	updatedAt: DateLike;
 	author: string;
+	type: string;
 }
 
 interface DateLike {

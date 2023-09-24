@@ -27,7 +27,8 @@
 				content: comment,
 				createdAt: { seconds: Date.now() / 1000, nanoseconds: Date.now() * 1_000_000 },
 				updatedAt: { seconds: Date.now() / 1000, nanoseconds: Date.now() * 1_000_000 },
-				author: $user?.uid || ''
+				author: $user?.uid || '',
+				type: 'comment'
 			},
 			id
 		);
@@ -59,9 +60,13 @@
 					{issue.title}
 				{/if}
 			</h1>
-			<p>Created by {author.name}, {dateFormatter.format(issue.createdAt.seconds * 1000)}</p>
 
 			<div class="content">
+				<p>
+					<b>{author.name}</b> created this issue {dateFormatter.format(
+						issue.createdAt.seconds * 1000
+					)}:
+				</p>
 				<p>{issue.description}</p>
 			</div>
 
@@ -78,9 +83,21 @@
 						on:click={async () => {
 							await closeIssue(id);
 
+							await createComment(
+								{
+									content: 'This issue has been closed.',
+									createdAt: { seconds: Date.now() / 1000, nanoseconds: Date.now() * 1_000_000 },
+									updatedAt: { seconds: Date.now() / 1000, nanoseconds: Date.now() * 1_000_000 },
+									author: $user?.uid || '',
+									type: 'closed'
+								},
+								id
+							);
+
 							toast.success('The issue has been closed!');
 							setTimeout(() => location.reload(), 2000);
-						}}>Close issue</button
+						}}
+						disabled={issue.status == 'closed'}>Close issue</button
 					>
 				{/if}
 			{/await}
@@ -96,14 +113,26 @@
 
 			{#each issue.comments as comment}
 				{#await getUserInfo(comment.author) then commentAuthor}
-					<div class="content">
-						<p>
-							<b>{commentAuthor.name}</b> commented {dateFormatter.format(
-								comment.createdAt.seconds * 1000
-							)}:
-						</p>
-						<p>{comment.content}</p>
-					</div>
+					{#if comment.type == 'closed'}
+						<div class="content">
+							<p>
+								<b
+									>{commentAuthor.name} closed this issue {dateFormatter.format(
+										comment.createdAt.seconds * 1000
+									)}
+								</b>
+							</p>
+						</div>
+					{:else}
+						<div class="content">
+							<p>
+								<b>{commentAuthor.name}</b> commented {dateFormatter.format(
+									comment.createdAt.seconds * 1000
+								)}:
+							</p>
+							<p>{comment.content}</p>
+						</div>
+					{/if}
 				{/await}
 			{:else}
 				<p>No comments yet.</p>
